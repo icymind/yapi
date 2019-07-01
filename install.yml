@@ -1,0 +1,20 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db #db dir
+  yapi:
+    image: icymind/yapi
+    container_name: yapi
+    ports:
+      - 8001:3000
+    depends_on:
+      - mongo
+    command: npm run install-server
+volumes:
+    mongo-data:
+      external: true
